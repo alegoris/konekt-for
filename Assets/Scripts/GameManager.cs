@@ -10,8 +10,13 @@ public enum TileSprite
 
 public class GameManager : Singleton<GameManager>
 {
-    [HideInInspector]
+	public VictoryScreen victoryScreen;
+
+	[HideInInspector]
     public TileSprite currentPlayer;
+
+	[HideInInspector]
+	public bool gameCompleted = false;
 
     private int redTilesNo = 20;
     private int yellowTilesNo = 20;
@@ -43,6 +48,8 @@ public class GameManager : Singleton<GameManager>
 
     public void EndGame(bool tie = false)
     {
+		gameCompleted = true;
+
         if(tie)
         {
             Debug.Log("Tie! Reloading...");
@@ -52,10 +59,12 @@ public class GameManager : Singleton<GameManager>
             Debug.Log("Game over, winner is " + currentPlayer);
         }
         
-        Invoke("ReloadLevel", 5.0f);
+		victoryScreen.DisplayVictory (currentPlayer);
+
+        //Invoke("ReloadLevel", 5.0f);
     }
 
-    void ReloadLevel()
+   public void ReloadLevel()
     {
         Application.LoadLevel(Application.loadedLevel);
     }

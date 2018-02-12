@@ -35,6 +35,10 @@ public class InputColumn : MonoBehaviour {
 
     void OnMouseDown()
     {
+		if (GameManager.Instance.gameCompleted){
+			return;
+		}
+
         Debug.Log("column pressed " + columnNumber);
 
         int emptyTile = CheckAvailableTiles();
