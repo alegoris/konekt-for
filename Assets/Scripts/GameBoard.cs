@@ -70,8 +70,13 @@ public class GameBoard : Singleton<GameBoard>
 
 
 	// Use this for initialization
-	void Start ()
+	public void Init ()
     {
+		Camera c = Camera.main;
+		Debug.Log (c.name);
+		c.orthographicSize = GameManager.Instance.rowCount/2f;
+		Debug.Log ("Camera size: " + c.orthographicSize);
+
         for (int i = 0; i < columns.Length; i++)
         {
             Vector3 pos = new Vector3(boardPos.x + 1 * i, boardPos.y, boardPos.z);
@@ -83,6 +88,7 @@ public class GameBoard : Singleton<GameBoard>
         }
 
         IndexCombinations();
+
 	}
 	
     public bool CheckLinks(int columnIdx, int tileIdx, TileSprite tileType)

@@ -11,6 +11,7 @@ public enum TileSprite
 public class GameManager : Singleton<GameManager>
 {
 	public VictoryScreen victoryScreen;
+	public GameBoard gameBoard;
 
 	[HideInInspector]
     public TileSprite currentPlayer;
@@ -21,9 +22,14 @@ public class GameManager : Singleton<GameManager>
     private int redTilesNo = 20;
     private int yellowTilesNo = 20;
 
+	public int rowCount = 6;
+	public int columnCount = 7;
+
 	void Start ()
     {
+		Debug.Log ("GameManager start");
         currentPlayer = TileSprite.SPRITE_YELLOW; // Yellow first
+		gameBoard.Init();
 	}
 	
     public void ChangePlayer()
