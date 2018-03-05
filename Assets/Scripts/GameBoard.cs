@@ -55,6 +55,8 @@ public class Combination
             return redVal;
         }
     }
+
+
 }
 
 
@@ -62,12 +64,58 @@ public class GameBoard : Singleton<GameBoard>
 {
     public GameObject column;
     public Vector3 boardPos;
+	private bool moved = false;
+	float lastHorizontal = 0;
+	int selectedColumn = 0;
 
-
-    private GameObject[] columns = new GameObject[7];
+	private GameObject[] columns = new GameObject[7];
 
     private Combination[] combinations = new Combination[69]; //ha-ha.
 
+
+	void Update(){
+		float horizontal = Input.GetAxis ("Horizontal");
+		if (horizontal < 0 && lastHorizontal >= 0) {
+			MoveLeft ();
+		} 
+		else if (horizontal > 0 && lastHorizontal <= 0) {
+			MoveRight ();
+		}
+		lastHorizontal = horizontal;
+
+		if (Input.GetKeyDown (KeyCode.Space)) {
+			columns [selectedColumn].GetComponent<InputColumn> ().PlaceTile();
+		}
+/*
+		if (Input.GetKey (KeyCode.LeftArrow)) {
+			//MovePlayer (Vector3.left);
+		}
+		if (Input.GetKey (KeyCode.RightArrow)) {
+			//MovePlayer (Vector3.right);
+		}
+		 */
+	}
+
+	private void MoveLeft () 
+	{
+		columns [selectedColumn].GetComponent<InputColumn> ().IsSelected (false);
+		selectedColumn--;
+		if (selectedColumn < 0)
+			selectedColumn = columns.Length - 1;
+		columns [selectedColumn].GetComponent<InputColumn> ().IsSelected (true);
+		
+	}
+
+	private void MoveRight () 
+	{
+		columns [selectedColumn].GetComponent<InputColumn> ().IsSelected (false);
+		selectedColumn++;
+		if (selectedColumn > columns.Length-1)
+			selectedColumn = 0;
+		columns [selectedColumn].GetComponent<InputColumn> ().IsSelected (true);
+
+
+	}
 
 	// Use this for initialization
 	public void Init ()

@@ -5,6 +5,8 @@ using System.Collections.Generic;
 public class TileScript : MonoBehaviour
 {
     public Sprite[] sprites;
+	public bool selectedColumn = false;
+
 
     [HideInInspector]
     public int currentSprite;
@@ -19,6 +21,18 @@ public class TileScript : MonoBehaviour
         }
 
         ChangeSprite(TileSprite.SPRITE_EMPTY);
+	}
+
+	public void IsSelected (bool val) 
+	{
+		if (val) {
+			gameObject.GetComponent<SpriteRenderer> ().color = Color.green;
+		} 
+		else 
+		{
+			gameObject.GetComponent<SpriteRenderer> ().color = Color.white;
+		} 
+			
 	}
 
     public void AddCombination(Combination comb)

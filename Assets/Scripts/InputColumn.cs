@@ -33,7 +33,14 @@ public class InputColumn : MonoBehaviour {
         }
     }
 
-    void OnMouseDown()
+	public void IsSelected (bool val)
+	{
+		foreach (TileScript tile in tiles) {
+			tile.IsSelected (val);
+		}
+	}
+
+    public void PlaceTile()
     {
 		if (GameManager.Instance.gameCompleted){
 			return;
@@ -63,6 +70,10 @@ public class InputColumn : MonoBehaviour {
         
 
     }
+	void OnMouseDown() 
+	{
+		PlaceTile();
+	}
 
     public int CheckAvailableTiles()
     {
